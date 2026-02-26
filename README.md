@@ -1,6 +1,6 @@
 # On device voice extention
 
-Dictate text with your voice and paste it directly into Claude Code.
+Dictate text with your voice and paste it directly into any terminal or assitant.
 Transcription runs entirely on your machine using faster-whisper — no data leaves your computer.
 
 ## Features
@@ -52,4 +52,5 @@ The keyboard shortcut can be changed in ⌘K ⌘S (Keyboard Shortcuts).
 ### 0.1.0
 
 Initial release with voice recording, local transcription, and clipboard integration.
+
 
