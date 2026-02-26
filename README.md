@@ -1,13 +1,14 @@
 # On device voice extention
 
-Dictate text with your voice and paste it directly into any terminal or assitant.
+Dictate text with your voice and send it directly to your active terminal (Claude Code, shell, etc.).
 Transcription runs entirely on your machine using faster-whisper — no data leaves your computer.
 
 ## Features
 
 - **One-click voice recording** — Open the recorder panel, click the mic, and speak
 - **Local transcription** — Uses the Whisper `small` model running on your CPU, no cloud API needed
-- **Clipboard integration** — Transcribed text is automatically copied, ready to paste with ⌘V
+- **Direct terminal injection** — Transcribed text is sent to the active terminal via `sendText()`, no paste needed
+- **Clipboard fallback** — Text is also copied to clipboard in case no terminal is active
 - **Status bar indicator** — See the current state at a glance (idle, recording, transcribing)
 - **Timer display** — Track your recording duration in real time
 
@@ -48,6 +49,11 @@ The keyboard shortcut can be changed in ⌘K ⌘S (Keyboard Shortcuts).
 - First transcription is slow due to model download (~244 MB)
 
 ## Release Notes
+
+### 0.1.1
+
+- Send transcription directly to the active terminal instead of clipboard-only
+- Clipboard copy kept as fallback when no terminal is active
 
 ### 0.1.0
 

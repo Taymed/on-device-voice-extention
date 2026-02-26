@@ -288,7 +288,7 @@ function runPython(
 }
 
 // ---------------------------------------------------------------------------
-// Clipboard + notification
+// Terminal injection + clipboard fallback
 // ---------------------------------------------------------------------------
 
 async function handleTranscription(text: string): Promise<void> {
@@ -296,10 +296,24 @@ async function handleTranscription(text: string): Promise<void> {
     vscode.window.showWarningMessage("Aucune transcription détectée.");
     return;
   }
+
+  // Always copy to clipboard as fallback
   await vscode.env.clipboard.writeText(text);
-  vscode.window.showInformationMessage(
-    `Transcription copiée ! Faites Cmd+V dans Claude Code.`
-  );
+
+  // Try to send directly to the active terminal
+  const terminal = vscode.window.activeTerminal;
+  if (terminal) {
+    // sendText(text, false) writes to stdin without appending \n
+    // The text appears in the prompt; user just presses Enter to submit
+    terminal.sendText(text, false);
+    vscode.window.showInformationMessage(
+      "Transcription sent to terminal. Press Enter to submit."
+    );
+  } else {
+    vscode.window.showInformationMessage(
+      "Transcription copied! Paste with Cmd+V in Claude Code."
+    );
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -405,7 +419,7 @@ function getWebviewHtml(): string {
 
   <div id="status">Prêt — cliquez pour enregistrer</div>
 
-  <p class="hint">La transcription sera copiée dans le presse-papiers</p>
+  <p class="hint">Transcription will be sent to the active terminal</p>
 
   <script>
     const vscode = acquireVsCodeApi();
