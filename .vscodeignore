@@ -1,0 +1,7 @@
+.venv/**
+node_modules/**
+src/**
+*.vsix
+tsconfig.json
+requirements.txt
+images/icon.svg
